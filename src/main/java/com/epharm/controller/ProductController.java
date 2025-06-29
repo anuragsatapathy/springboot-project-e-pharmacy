@@ -1,9 +1,12 @@
 package com.epharm.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.epharm.entity.Products;
@@ -16,8 +19,9 @@ public class ProductController {
 	private ProductsService productsService;
 
 	@GetMapping("/productlist")
-	public String product() {
-		
+	public String product(Model m) {
+		List<Products> product = productsService.ListProduct();
+		m.addAttribute("Products", product);
 		return "productlist";
 		
 	}
@@ -37,4 +41,21 @@ public class ProductController {
 		return "redirect:/productlist";
 		
 	}
+	
+	@PostMapping("/updateproducts")
+	public String updateProduct(Products product) {
+		productsService.updateProduct(product);
+		return "redirect:/productlist";
+		
+		
+	}
+	
+	@GetMapping("/deleteproducts/{id}")
+	public String deleteProduct(@PathVariable Integer id) {
+		productsService.deleteProduct(id);
+		return "redirect:/productlist";
+		
+	}
+	
+	
 }
