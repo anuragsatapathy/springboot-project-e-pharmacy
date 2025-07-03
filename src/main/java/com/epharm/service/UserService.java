@@ -16,12 +16,13 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	public boolean RegisterUser(String email,String password) {
+	public boolean RegisterUser(String email,String password,String role) {
 		if(userRepository.findByEmail(email) != null) {
 			return false;
 		}
 		User user = new User();
 		user.setEmail(email);
+		user.setRole(role);
 		user.setPassword(passwordEncoder.encode(password));
 		userRepository.save(user);
 		return true;
@@ -37,5 +38,7 @@ public class UserService {
 		return false;
 		
 	}
+	
+	
 }
 
