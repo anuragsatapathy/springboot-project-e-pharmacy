@@ -13,20 +13,61 @@
 <title>Create Product</title>
 </head>
 <body>
-	<form th:action="@{/createproduct}" th:object="${products}" method="post">
-		<div class="mb-3">
-			<label for="exampleInputEmail1" class="form-label">Name
-			</label> <input type="text" class="form-control" th:field="*{name}"
-				id="exampleInputEmail1" aria-describedby="emailHelp">
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Epharm</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+				aria-controls="navbarScroll" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarScroll">
+				<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+					style="--bs-scroll-height: 100px;">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/home">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="/productlist">List All Products</a></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" role="button"
+						data-bs-toggle="dropdown" aria-expanded="false"> Products </a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="#">Action</a></li>
+							<li><a class="dropdown-item" href="#">Another action</a></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="#">Something else
+									here</a></li>
+						</ul></li>
+					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
+					</li>
+				</ul>
+				<form class="d-flex" role="search">
+					<input class="form-control me-2" type="search" placeholder="Search"
+						aria-label="Search" />
+					<button class="btn btn-outline-success" type="submit">Search</button>
+				</form>
+			</div>
 		</div>
-		
-		<div class="mb-3">
-			<label for="exampleInputPassword1" class="form-label">Price</label>
-			<input type="number" class="form-control" th:field="*{price}"
-				id="exampleInputPassword1">
-		</div>
+	</nav>
+	<div class="container mt-5">
+		<h2>Create product</h2>
+		<form th:action="@{/createproduct}" th:object="${products}"
+			method="post">
+			<div class="mb-3">
+				<label for="exampleInputEmail1" class="form-label">Name </label> <input
+					type="text" class="form-control" th:field="*{name}"
+					id="exampleInputEmail1" aria-describedby="emailHelp">
+			</div>
 
-		<button type="submit" class="btn btn-primary">Create Product</button>
-	</form>
+			<div class="mb-3">
+				<label for="exampleInputPassword1" class="form-label">Price</label>
+				<input type="number" class="form-control" th:field="*{price}"
+					id="exampleInputPassword1">
+			</div>
+
+			<button type="submit" class="btn btn-primary">Create Product</button>
+		</form>
+	</div>
 </body>
 </html>

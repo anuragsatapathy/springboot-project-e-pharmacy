@@ -13,6 +13,8 @@
 <title>Signup Page</title>
 </head>
 <body>
+<div class="container mt-5">
+<h2>Register</h2>
 	<form th:action="@{/register}" th:object="${users}" method="post">
 		<div class="mb-3">
 			<label for="exampleInputEmail1" class="form-label">Email
@@ -37,6 +39,8 @@
 		</div>
 
 		<button type="submit" class="btn btn-primary">Register</button>
+		<a href="/login"><button type="button" class="btn btn-success">Click here to login</button></a>
 	</form>
+	</div>
 </body>
 </html>
