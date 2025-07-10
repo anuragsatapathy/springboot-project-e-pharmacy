@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" th:inline="javascript" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
@@ -44,6 +44,7 @@
 					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
 					</li>
+					<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
 				</ul>
 				<form class="d-flex" role="search">
 					<input class="form-control me-2" type="search" placeholder="Search"
@@ -90,7 +91,7 @@
 					<td>
 					<div sec:authorize="hasRole('USER')" class="d-flex gap-2">
 					
-						<button type="button" class="btn btn-primary btn-lg" onclick="increment();">+</button>
+						<button type="button" class="btn btn-primary btn-lg" th:onclick="'increment('+${product.id}+')'">+</button>
 						
 						<p class="text-center" id="quantity">0</p>
 						

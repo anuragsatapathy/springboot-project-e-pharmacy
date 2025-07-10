@@ -39,6 +39,12 @@ public class UserService {
 		
 	}
 	
+	public Integer getUserId(String email) {
+		User user = userRepository.findByEmail(email);
+		return user.getId();
+		
+	}
+	
 	
 }
 
