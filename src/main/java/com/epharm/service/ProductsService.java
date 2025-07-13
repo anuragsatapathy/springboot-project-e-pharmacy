@@ -13,6 +13,9 @@ public class ProductsService {
 
 	@Autowired
 	private ProductsRepository productsRepository;
+	
+	@Autowired
+	private UserCartsService userCartsSrrvice;
 
 	public boolean createProduct(Products product) {
 
@@ -23,6 +26,7 @@ public class ProductsService {
 	
 	public List<Products> ListProduct(){
 		List<Products> products = productsRepository.findAll();
+		
 		return products;
 		
 	}

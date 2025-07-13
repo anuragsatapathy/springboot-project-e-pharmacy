@@ -27,4 +27,12 @@ private UserService userService;
 		return userCartsService.addProduct(userid,userCartsDetails.getProductid());
 		
 	}
+	
+	@PostMapping("/removeproductfromcart")
+	public boolean removeProduct(@RequestBody UserCarts userCartsDetails,Principal principal) {
+		String email=principal.getName();
+		Integer userid=userService.getUserId(email);
+		return userCartsService.removeProduct(userid,userCartsDetails.getProductid());
+		
+	}
 }

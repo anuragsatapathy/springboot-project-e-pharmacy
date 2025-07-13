@@ -1,0 +1,16 @@
+.cart-container{
+	position:relative;
+	padding-right:10px;
+	margin-right:10px;
+}
+
+#cartsquantity{
+	
+	text-decoration:none;
+	top:-7px;
+	right:12px;
+	position:absolute;
+	color:blue;
+	font-size:12px;
+	
+}

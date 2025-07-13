@@ -32,4 +32,34 @@ public class UserCartsService {
 		}
 		return true;
 	}
+	
+		public boolean removeProduct(Integer userid,Integer productid) {
+		
+		UserCarts userCarts =userCartsRepository.findByUseridAndProductid(userid, productid);
+		
+		if( userCarts != null) {
+			 
+			 if(userCarts.getProductquantity() == 1) {
+				 userCartsRepository.delete(userCarts);
+			 }
+			 else {
+				 userCarts.setProductquantity( userCarts.getProductquantity()-1); 
+				 userCartsRepository.save(userCarts); 
+			 }
+		}
+		
+		return true;
+	}
+	
+	public Integer getQuantity(Integer userid, Integer productid) {
+		
+		UserCarts usercarts = userCartsRepository.findByUseridAndProductid(userid, productid);
+		if(usercarts != null) {
+			return usercarts.getProductquantity();
+		}
+		else {
+			return 0;
+		}
+		
+	}
 }
