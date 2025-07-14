@@ -1,6 +1,7 @@
 package com.epharm.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,6 @@ public class ProductsService {
 	@Autowired
 	private ProductsRepository productsRepository;
 	
-	@Autowired
-	private UserCartsService userCartsSrrvice;
 
 	public boolean createProduct(Products product) {
 
@@ -40,6 +39,19 @@ public class ProductsService {
 	public boolean deleteProduct(Integer id) {
 		productsRepository.deleteById(id);
 		return true;
+	}
+	
+	public Products getProductsById(Integer productid) {
+		
+		Optional<Products> product =  productsRepository.findById(productid);
+	
+		if(product.isPresent()) {
+			return product.get();
+		}
+		else {
+			return null;
+		}
+		
 	}
 
 }

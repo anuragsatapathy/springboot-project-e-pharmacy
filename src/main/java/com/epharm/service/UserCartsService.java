@@ -1,10 +1,13 @@
 package com.epharm.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.epharm.entity.Products;
 import com.epharm.entity.UserCarts;
 import com.epharm.repository.UserCartsRepository;
 
@@ -13,6 +16,8 @@ public class UserCartsService {
 
 	@Autowired
 	private UserCartsRepository userCartsRepository;
+	@Autowired
+	private ProductsService productsService;
 	
 	public boolean addProduct(Integer userid,Integer productid) {
 		
@@ -60,6 +65,24 @@ public class UserCartsService {
 		else {
 			return 0;
 		}
+		
+	}
+	
+	public List<ProductList> getAllCartsProducts(Integer userid){
+		
+		List<UserCarts> usercarts = userCartsRepository.findAllByUserid(userid);
+		
+		List<ProductList> list = new ArrayList<>();
+		for(UserCarts k : usercarts) {
+			ProductList productlist = new ProductList();
+			Products product = productsService.getProductsById(k.getProductid());
+			productlist.setId(k.getProductid());
+			productlist.setName(product.getName());
+			productlist.setPrice(product.getPrice());
+			productlist.setProductquantity(k.getProductquantity());
+			list.add(productlist);
+		}
+		return list;
 		
 	}
 }
