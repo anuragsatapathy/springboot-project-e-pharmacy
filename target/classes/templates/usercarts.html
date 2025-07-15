@@ -100,7 +100,29 @@
 			</tr>
 		</tbody>
 	</table>
-
-	<script src="/js/script.js"></script>
+	
+	<div>
+	
+								<button type="button" class="btn btn-warning btn-lg"
+								onclick="openmodal()">Place Order</button>
+	</div>
+	<div id="paymentmodal" class="modal" style="display:none;">
+		<div class="modal-content"><span onclick="closemodal()" style="cursor:pointer;">x
+		</span>
+		<h3>
+		Select Payment Method
+		</h3>
+		<select id="paymentmethod" style="margin:15px 0;" class="form-control">
+		<option value="">Select</option>
+		<option value="credit-card">Credit Card</option>
+		<option value="debit-card">Debit Card</option>
+		<option value="upi-cart">Upi</option>
+		<option value="emi-cart">Emi</option>
+		<option value="cod-cart">Cash On Delivery</option>
+		</select>
+		<button class="btn btn-success" onclick="paynow()">Pay</button>
+		</div>
+	</div>
+	<script src="/js/cartsscript.js"></script>
 </body>
 </html>
