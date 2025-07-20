@@ -12,4 +12,6 @@ public interface UserCartsRepository extends JpaRepository<UserCarts,Integer>{
    UserCarts findByUseridAndProductid(Integer userid,Integer productid);
    
    List<UserCarts>  findAllByUserid(Integer userid);
+   
+   void deleteAllByUserid(Integer userid);
 }

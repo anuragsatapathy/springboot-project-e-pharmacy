@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -16,6 +18,8 @@ import com.epharm.service.ProductList;
 import com.epharm.service.ProductsService;
 import com.epharm.service.UserCartsService;
 import com.epharm.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class OrdersController {
@@ -28,14 +32,15 @@ public class OrdersController {
 	private OrderDetailsService orderDetailsService;
 	
 	@PostMapping("/place-order")
-	public String placeOrder(@RequestBody OrderPlacedDetails orderplaceddetails, Principal principal) {
+	public String placeOrder(@ModelAttribute("orderplaceddetails") OrderPlacedDetails orderplaceddetails, Principal principal, Model m) throws JsonProcessingException {
 		
 		String email = principal.getName();
 		Integer userid = userService.getUserId(email);
 		
 		String productsdetails = "";
 		List<ProductList> list = userCartsService.getAllCartsProducts(userid);
-		productsdetails = list.toString();
+		ObjectMapper objectmapper = new ObjectMapper();
+		productsdetails = objectmapper.writeValueAsString(list);
 		double totalprice = 0;
 		for(ProductList k : list) {
 			
@@ -51,6 +56,10 @@ public class OrdersController {
 		orderdetails.setProductdetails(productsdetails);
 		
 		orderDetailsService.insertOrder(orderdetails);
-			)
+		userCartsService.deleteCart(userid);
+		
+		m.addAttribute("order", orderdetails);
+		return "orderdetails";
+		
 	}
 }

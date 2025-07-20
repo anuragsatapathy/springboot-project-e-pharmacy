@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.epharm.entity.Products;
 import com.epharm.entity.UserCarts;
@@ -84,5 +85,12 @@ public class UserCartsService {
 		}
 		return list;
 		
+	}
+	
+	@Transactional
+	public boolean deleteCart(Integer userid) {
+		
+		userCartsRepository.deleteAllByUserid(userid);
+		return true;
 	}
 }

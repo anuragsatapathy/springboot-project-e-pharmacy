@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.epharm.service.OrderPlacedDetails;
 import com.epharm.service.ProductList;
 import com.epharm.service.ProductsService;
 import com.epharm.service.UserCartsService;
@@ -29,6 +30,7 @@ public class UserCartsWebController {
 		Integer userid = userService.getUserId(email);
 		List<ProductList> list = userCartsService.getAllCartsProducts(userid);
 		m.addAttribute("Products", list);
+		m.addAttribute("orderplaceddetails", new OrderPlacedDetails());
 		return "usercarts";
 	}
 }
