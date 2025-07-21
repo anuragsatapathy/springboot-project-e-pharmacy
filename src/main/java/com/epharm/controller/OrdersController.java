@@ -59,6 +59,7 @@ public class OrdersController {
 		userCartsService.deleteCart(userid);
 		
 		m.addAttribute("order", orderdetails);
+		m.addAttribute("products", list);	
 		return "orderdetails";
 		
 	}

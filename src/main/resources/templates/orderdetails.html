@@ -16,10 +16,39 @@
 </head>
 
 <body>
-<h3>Order placed successfully</h3>
+	<h3>Order placed successfully</h3>
 
-<h1>Product Details</h1>
-
+	<h4>Order Summary</h4>
+	<button class="btn btn-secondary" onclick="window.print()">Print Invoice</button><br>
+	<ul class="list-group mb-4">
+		<li class="list-group-item"><strong>User Id : <span
+				th:text="${order.userid}"></span></strong></li>
+		<li class="list-group-item"><strong>Total Price : <span
+				th:text="${order.totalprice}"></span></strong></li>
+		<li class="list-group-item"><strong>Payment Method : <span
+				th:text="${order.paymentmethod}"></span></strong></li>
+		<li class="list-group-item"><strong>Delivery Address : <span
+				th:text="${order.deliveryaddress}"></span></strong></li>
+	</ul>
+	<h4>Product Details</h4>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Product Name</th>
+				<th>Quantity</th>
+				<th>Price</th>
+				<th>Total Price</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="product:${products}">
+				<td th:text="${product.name}"></td>
+				<td th:text="${product.productquantity}"></td>
+				<td th:text="${product.price}"></td>
+				<td th:text="${product.productquantity * product.price}"></td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 
 </html>
