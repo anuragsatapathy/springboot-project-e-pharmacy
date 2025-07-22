@@ -34,3 +34,10 @@
 	background-color:rgba(0,0,0,0.5);
 	display:none;
 }
+
+.login-page{
+	background-repeat:no-repeat;
+	background-size: cover;
+	background-position:center;
+	height:100vh;
+}

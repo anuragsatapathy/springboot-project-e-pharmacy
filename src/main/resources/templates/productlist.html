@@ -31,10 +31,10 @@
 			<div class="collapse navbar-collapse" id="navbarScroll">
 				<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
 					style="--bs-scroll-height: 100px;">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/home">Home</a></li>
+					<div sec:authorize="hasRole('ADMIN')">
 					<li class="nav-item"><a class="nav-link" href="/createproduct">Create
 							Product</a></li>
+							</div>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false"> Products </a>
@@ -65,7 +65,10 @@
 			</div>
 		</div>
 	</nav>
-	<table>
+	<div class="container mt-5">
+	<div class="card shadow p-4">
+	<h2 class="text-center mb-4">Product List</h2>
+	<table class="table  table-striped table-bordered table-hover align-middle shadow mt-4" >
 		<thead>
 			<tr>
 				<th>id</th>
@@ -86,41 +89,47 @@
 					<td><input type="text" th:name="id" th:value="${product.id}"
 						readonly></td>
 
-					<td><input type="text" th:name="name"
+					<td><input th:readonly="${#authorization.expression('hasRole(''USER'')')}" type="text" th:name="name"
 						th:value="${product.name}"></td>
 
-					<td><input type="text" th:name="price"
+					<td><input th:readonly="${#authorization.expression('hasRole(''USER'')')}" type="text" th:name="price"
 						th:value="${product.price}"></td>
-					<td>
+					
 						<div sec:authorize="hasRole('ADMIN')">
+						<td>
 							<button type="submit">Update</button>
 							<a th:href="@{/deleteproducts/{id}(id=${product.id})}"><button
 									type="button">Delete</button></a>
+									
+									</td>
 						</div>
-					</td>
+					
 
-					<td>
-						<div sec:authorize="hasRole('USER')" class="d-flex gap-2">
+					
+						<div sec:authorize="hasRole('USER')" class="d-flex gap-2 justify-content-center align-items-center">
+						<td>
 
 							<button type="button" class="btn btn-primary btn-lg"
 								th:onclick="'increment('+${product.id}+')'">+</button>
 
-							<p class="text-center" th:id="'quantity-'+${product.id}"
-								th:text="${product.productquantity}"></p>
+							<span class="px-2 fw-bold" th:id="'quantity-'+${product.id}"
+								th:text="${product.productquantity}"></span>
 
 							<button type="button" class="btn btn-success btn-lg"
 								th:onclick="'decrement('+${product.id}+')'">-</button>
 
 
-
+						</td>
 						</div>
 
-					</td>
+					
 
 				</form>
 			</tr>
 		</tbody>
 	</table>
+	</div>
+	</div>
 
 	<script src="/js/script.js"></script>
 </body>
