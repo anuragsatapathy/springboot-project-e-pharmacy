@@ -35,7 +35,7 @@ public class AppConfig {
          )
          .authorizeHttpRequests(requests -> requests
              // Public routes
-             .requestMatchers("/login", "/register", "/css/**", "/js/**", "/h2-console/**").permitAll()
+             .requestMatchers("/login", "/register", "/css/**", "/js/**", "/h2-console/**", "/images/**").permitAll()
 
              // View-only access for users and admins
              .requestMatchers("/productlist").hasAnyRole("USER", "ADMIN")

@@ -41,3 +41,34 @@
 	background-position:center;
 	height:100vh;
 }
+
+.glass-card{
+	backdrop-filter:blur(10px);
+	-webkit-backdrop-filter:blur(10px);
+	min-width:350px; 
+	max-width:400px;
+	background:rgba(255,255,255,0.1); 
+	border-radius:12px;
+	box-shadow:0 8px 32px 0 rgba(31,38,135,0.37);
+	border:1px solid rgba(255,255,255,0.18);
+	color:black;
+	
+}
+
+.input-icon-wrapper{
+	position:relative;
+	
+}
+
+.input-icon-wrapper .form-control{
+	padding-right:2.5rem;
+}
+
+.input-icon-right{
+	position:absolute;
+	top:50%;
+	right:10px;
+	transform:translateY(-50%);
+	pointer-events:none;
+	color:#6c757d;
+}

@@ -8,6 +8,8 @@
 	rel="stylesheet"
 	integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
 	crossorigin="anonymous">
+	<!-- Option 1: Include in HTML -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
@@ -15,16 +17,23 @@
 </head>
 <body th:style="'background-image:url('+@{images/login-img.jpeg}+');'" class="login-page">
 	<div class="container d-flex justify-content-center align-items-center" style="height:100vh;">
-	<div class="card p-4 shadow" style="min-width:350px; max-width:400px; background-color:rgba(255,255,255,0.9); border-radius:12px;">
+	<div class="p-4 glass-card">
 		<h2 class="text-center mb-4">Login</h2>
 		<form th:action="@{/login}" method="post">
         <div class="mb-3">
             <label for="username" class="form-label">Email address</label>
+            <div class="input-icon-wrapper">
             <input type="text" class="form-control" id="username" name="username" placeholder="Enter your email" required>
+            <i class="bi bi-envelope input-icon-right"></i>
+            </div>
+            
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
+            <div class="input-icon-wrapper">
             <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+            <i class="bi bi-lock input-icon-right"></i>
+            </div>
         </div>
 
         <!-- Optional error or logout message -->

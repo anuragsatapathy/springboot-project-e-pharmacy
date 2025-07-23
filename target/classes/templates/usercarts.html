@@ -59,6 +59,7 @@
 			</div>
 		</div>
 	</nav>
+	<div th:if="${Products != null and !Products.isEmpty()}">
 	<table>
 		<thead>
 			<tr>
@@ -101,11 +102,16 @@
 		</tbody>
 	</table>
 	
-	<div>
-	
 								<button type="button" class="btn btn-warning btn-lg"
 								onclick="openmodal()">Place Order</button>
 	</div>
+	
+	<div th:unless="${Products != null and !Products.isEmpty()}">
+	
+	<p>Your cart is empty..</p>		
+					
+	</div>
+	
 	<div id="paymentmodal" class="modal" style="display:none;">
 		<div class="modal-content"><span onclick="closemodal()" style="cursor:pointer;">x
 		</span>
