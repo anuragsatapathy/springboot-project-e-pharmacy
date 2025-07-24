@@ -72,3 +72,18 @@
 	pointer-events:none;
 	color:#6c757d;
 }
+
+.carousel-small{
+	max-height:450px;
+	overflow:hidden;
+}
+.carousel-small img{
+	object-fit:cover;
+	width:auto;
+	max-height:450px;
+}
+.c-img{
+	object-fit:cover;
+	width:auto;
+	max-height:450px;
+}
