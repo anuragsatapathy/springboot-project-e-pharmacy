@@ -54,7 +54,7 @@
 	<div class="container mt-5">
 		<h2>Create product</h2>
 		<form th:action="@{/createproduct}" th:object="${products}"
-			method="post">
+			method="post" enctype="multipart/form-data">
 			<div class="mb-3">
 				<label for="exampleInputEmail1" class="form-label">Name </label> <input
 					type="text" class="form-control" th:field="*{name}"
@@ -65,6 +65,12 @@
 				<label for="exampleInputPassword1" class="form-label">Price</label>
 				<input type="number" class="form-control" th:field="*{price}"
 					id="exampleInputPassword1">
+			</div>
+			
+			<div class="mb-3">
+				<label for="uploadimage" class="form-label">Upload Image </label> <input
+					type="file" class="form-control" name="image"
+					id="uploadimage">
 			</div>
 
 			<button type="submit" class="btn btn-primary">Create Product</button>

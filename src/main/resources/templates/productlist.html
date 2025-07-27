@@ -100,6 +100,7 @@
 	<table class="table  table-striped table-bordered table-hover align-middle shadow mt-4" >
 		<thead>
 			<tr>
+				<th>image</th>
 				<th>id</th>
 				<th>name</th>
 				<th>price</th>
@@ -114,7 +115,12 @@
 		</thead>
 		<tbody>
 			<tr th:each="product:${Products}">
-				<form th:action="@{/updateproducts}" method=post>
+				<form th:action="@{/updateproducts}" method="post" enctype="multipart/form-data">
+					<td><img th:src="@{${product.imagepath}}" width="100" height="100" class="display-product-image">
+					<div sec:authorize="hasRole('ADMIN')">
+					<input type="file" name="image" class="form-label">
+					</div>
+					</td>
 					<td><input type="text" th:name="id" th:value="${product.id}"
 						readonly></td>
 

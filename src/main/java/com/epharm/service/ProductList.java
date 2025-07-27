@@ -6,6 +6,13 @@ public class ProductList {
 	private String name;
 	private double price;
 	private Integer productquantity;
+	private String imagepath;
+	public String getImagepath() {
+		return imagepath;
+	}
+	public void setImagepath(String imagepath) {
+		this.imagepath = imagepath;
+	}
 	public Integer getId() {
 		return id;
 	}

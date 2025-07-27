@@ -92,3 +92,11 @@
 	width:auto;
 	object-fit:contain;
 }
+.display-product-image{
+	cursor:pointer;
+	transition:transform 0.3s ease;
+}
+.display-product-image:hover{
+	transform:scale(1.2);
+	z-index:10;
+}

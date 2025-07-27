@@ -1,16 +1,29 @@
 package com.epharm.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.epharm.entity.Products;
 import com.epharm.service.ProductList;
@@ -44,6 +57,7 @@ public class ProductController {
 			productlist.setName(k.getName());
 			productlist.setPrice(k.getPrice());
 			productlist.setProductquantity(quantity);
+			productlist.setImagepath(k.getImagepath());
 			carts=carts + quantity;
 			list.add(productlist);
 		}
@@ -64,7 +78,13 @@ public class ProductController {
 	
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/createproduct")
-	public String createProductpost(Products product) {
+	public String createProductpost(Products product, @RequestParam("image") MultipartFile imagefile) throws IOException {
+		String filename = UUID.randomUUID() + "_" + imagefile.getOriginalFilename();
+		Path uploadpath = Paths.get("uploads/products/");
+		Files.createDirectories(uploadpath);
+		Path filepath = uploadpath.resolve(filename);
+		Files.copy(imagefile.getInputStream(), filepath, StandardCopyOption.REPLACE_EXISTING);
+		product.setImagepath("/uploads/products/"+filename);
 		productsService.createProduct(product);
 		
 		return "redirect:/productlist";
@@ -73,7 +93,13 @@ public class ProductController {
 	
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/updateproducts")
-	public String updateProduct(Products product) {
+	public String updateProduct(Products product, @RequestParam("image") MultipartFile imagefile) throws IOException {
+		String filename = UUID.randomUUID() + "_" + imagefile.getOriginalFilename();
+		Path uploadpath = Paths.get("uploads/products/");
+		Files.createDirectories(uploadpath);
+		Path filepath = uploadpath.resolve(filename);
+		Files.copy(imagefile.getInputStream(), filepath, StandardCopyOption.REPLACE_EXISTING);
+		product.setImagepath("/uploads/products/"+filename);
 		productsService.updateProduct(product);
 		return "redirect:/productlist";
 		
@@ -86,6 +112,19 @@ public class ProductController {
 		productsService.deleteProduct(id);
 		return "redirect:/productlist";
 		
+	}
+	
+	@GetMapping("/uploads/products/{filename:.+}")
+	@ResponseBody
+	public ResponseEntity<Resource> serveImage(@PathVariable String filename) throws IOException{
+		Path filepath = Paths.get("uploads/products/").resolve(filename);
+		Resource resource = new UrlResource(filepath.toUri());
+		if(resource.exists()) {
+			return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, Files.probeContentType(filepath)).body(resource);
+		}
+		else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 	
