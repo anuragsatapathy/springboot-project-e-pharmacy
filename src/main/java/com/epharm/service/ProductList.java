@@ -7,8 +7,15 @@ public class ProductList {
 	private double price;
 	private Integer productquantity;
 	private String imagepath;
+	private String description;
 	public String getImagepath() {
 		return imagepath;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public void setImagepath(String imagepath) {
 		this.imagepath = imagepath;

@@ -38,7 +38,7 @@ public class AppConfig {
              .requestMatchers("/login", "/register", "/css/**", "/js/**", "/h2-console/**", "/images/**").permitAll()
 
              // View-only access for users and admins
-             .requestMatchers("/productlist").hasAnyRole("USER", "ADMIN")
+             .requestMatchers("/productlist/**").hasAnyRole("USER", "ADMIN")
 
              // Restricted access for admins only
              .requestMatchers("/createproduct", "/updateproducts", "/deleteproducts/**").hasRole("ADMIN")
@@ -49,7 +49,7 @@ public class AppConfig {
          .formLogin(login -> login
              .loginPage("/login")
              .loginProcessingUrl("/login")
-             .defaultSuccessUrl("/productlist", true)
+             .defaultSuccessUrl("/productlist/0", true)
              .failureUrl("/login?error=true")
              .permitAll()
          )

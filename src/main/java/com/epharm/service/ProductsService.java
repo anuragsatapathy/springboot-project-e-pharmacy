@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.epharm.entity.Products;
@@ -23,8 +24,8 @@ public class ProductsService {
 
 	}
 	
-	public List<Products> ListProduct(){
-		List<Products> products = productsRepository.findAll();
+	public List<Products> ListProduct(Integer pageno){
+		List<Products> products = productsRepository.findAll(PageRequest.of(pageno, 5)).getContent();
 		
 		return products;
 		

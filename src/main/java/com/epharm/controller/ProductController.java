@@ -43,11 +43,12 @@ public class ProductController {
 	@Autowired
 	private UserCartsService userCartsService;
 
-	@GetMapping("/productlist")
-	public String product(Model m,Principal principal) {
+	@GetMapping("/productlist/{page}")
+	public String product(Model m,Principal principal,@PathVariable String page) {
 		String email=principal.getName();
+		Integer pageno = Integer.parseInt(page);
 		Integer userid=userService.getUserId(email);
-		List<Products> product = productsService.ListProduct();
+		List<Products> product = productsService.ListProduct(pageno);
 		List<ProductList> list = new ArrayList<>();
 		Integer carts = 0;
 		for(Products k : product) {
@@ -57,12 +58,14 @@ public class ProductController {
 			productlist.setName(k.getName());
 			productlist.setPrice(k.getPrice());
 			productlist.setProductquantity(quantity);
+			productlist.setDescription(k.getDescription());
 			productlist.setImagepath(k.getImagepath());
 			carts=carts + quantity;
 			list.add(productlist);
 		}
 		m.addAttribute("Products", list);
 		m.addAttribute("cartsquantity", carts);
+		m.addAttribute("page", pageno);
 		return "productlist";
 		
 	}
@@ -87,21 +90,23 @@ public class ProductController {
 		product.setImagepath("/uploads/products/"+filename);
 		productsService.createProduct(product);
 		
-		return "redirect:/productlist";
+		return "redirect:/productlist/0";
 		
 	}
 	
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/updateproducts")
 	public String updateProduct(Products product, @RequestParam("image") MultipartFile imagefile) throws IOException {
-		String filename = UUID.randomUUID() + "_" + imagefile.getOriginalFilename();
-		Path uploadpath = Paths.get("uploads/products/");
-		Files.createDirectories(uploadpath);
-		Path filepath = uploadpath.resolve(filename);
-		Files.copy(imagefile.getInputStream(), filepath, StandardCopyOption.REPLACE_EXISTING);
-		product.setImagepath("/uploads/products/"+filename);
+		if(imagefile != null && !imagefile.isEmpty()) {
+			String filename = UUID.randomUUID() + "_" + imagefile.getOriginalFilename();
+			Path uploadpath = Paths.get("uploads/products/");
+			Files.createDirectories(uploadpath);
+			Path filepath = uploadpath.resolve(filename);
+			Files.copy(imagefile.getInputStream(), filepath, StandardCopyOption.REPLACE_EXISTING);
+			product.setImagepath("/uploads/products/"+filename);
+		}
 		productsService.updateProduct(product);
-		return "redirect:/productlist";
+		return "redirect:/productlist/0";
 		
 		
 	}
@@ -110,7 +115,7 @@ public class ProductController {
 	@GetMapping("/deleteproducts/{id}")
 	public String deleteProduct(@PathVariable Integer id) {
 		productsService.deleteProduct(id);
-		return "redirect:/productlist";
+		return "redirect:/productlist/0";
 		
 	}
 	

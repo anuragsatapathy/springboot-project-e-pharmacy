@@ -103,6 +103,7 @@
 				<th>image</th>
 				<th>id</th>
 				<th>name</th>
+				<th>description</th>
 				<th>price</th>
 				<div sec:authorize="hasRole('ADMIN')">
 					<th>action</th>
@@ -118,7 +119,7 @@
 				<form th:action="@{/updateproducts}" method="post" enctype="multipart/form-data">
 					<td><img th:src="@{${product.imagepath}}" width="100" height="100" class="display-product-image">
 					<div sec:authorize="hasRole('ADMIN')">
-					<input type="file" name="image" class="form-label">
+					<input type="file" name="image" class="form-label" th:value="${product.imagepath}">
 					</div>
 					</td>
 					<td><input type="text" th:name="id" th:value="${product.id}"
@@ -126,15 +127,18 @@
 
 					<td><input th:readonly="${#authorization.expression('hasRole(''USER'')')}" type="text" th:name="name"
 						th:value="${product.name}"></td>
+						
+					<td><input th:readonly="${#authorization.expression('hasRole(''USER'')')}" type="text" th:name="description"
+						th:value="${product.description}"></td>
 
 					<td><input th:readonly="${#authorization.expression('hasRole(''USER'')')}" type="text" th:name="price"
 						th:value="${product.price}"></td>
 					
 						<div sec:authorize="hasRole('ADMIN')">
 						<td>
-							<button type="submit">Update</button>
+							<button type="submit" class="btn btn-primary">Update</button>
 							<a th:href="@{/deleteproducts/{id}(id=${product.id})}"><button
-									type="button">Delete</button></a>
+									type="button" class="btn btn-danger">Delete</button></a>
 									
 									</td>
 						</div>
@@ -163,6 +167,10 @@
 			</tr>
 		</tbody>
 	</table>
+	<div th:with="previousPage=${page-1},nextpage=${page+1}" class="text-end mt-3">
+	<a th:if="${page > 0}" th:href="@{'/productlist/'+ ${previousPage}}"><button class="btn btn-primary me-2">Previous</button></a>
+	<a th:href="@{'/productlist/'+ ${nextpage}}"><button class="btn btn-primary me-2">Next</button ></a>
+	</div>
 	</div>
 	</div>
 	<footer class="bg-primary-subtle text-dark text-center text-lg-start mt-5">
