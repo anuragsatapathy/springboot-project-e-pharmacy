@@ -105,6 +105,13 @@ public class ProductController {
 			Files.copy(imagefile.getInputStream(), filepath, StandardCopyOption.REPLACE_EXISTING);
 			product.setImagepath("/uploads/products/"+filename);
 		}
+		else {
+			Products existing = productsService.getProductsById(product.getId());
+			if(existing != null) {
+				
+				product.setImagepath(existing.getImagepath());
+			}
+		}
 		productsService.updateProduct(product);
 		return "redirect:/productlist/0";
 		

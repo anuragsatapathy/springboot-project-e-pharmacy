@@ -47,8 +47,8 @@
 							<li><a class="dropdown-item" href="#">Something else
 									here</a></li>
 						</ul></li>
-					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
+					<li class="nav-item"><a class="nav-link" href="/aboutus">About</a></li>
+					<li class="nav-item"><a class="nav-link" href="/contactus">Contact</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
 				</ul>
@@ -119,7 +119,8 @@
 				<form th:action="@{/updateproducts}" method="post" enctype="multipart/form-data">
 					<td><img th:src="@{${product.imagepath}}" width="100" height="100" class="display-product-image">
 					<div sec:authorize="hasRole('ADMIN')">
-					<input type="file" name="image" class="form-label" th:value="${product.imagepath}">
+					<input type="file" name="image" class="form-label custom-file-input" th:id="'form-input-image__'+${product.id}">
+					<label th:for="'form-input-image__'+${product.id}" class="custom-file-label">Update Image</label><span>Choose a File</span>
 					</div>
 					</td>
 					<td><input type="text" th:name="id" th:value="${product.id}"
@@ -128,8 +129,8 @@
 					<td><input th:readonly="${#authorization.expression('hasRole(''USER'')')}" type="text" th:name="name"
 						th:value="${product.name}"></td>
 						
-					<td><input th:readonly="${#authorization.expression('hasRole(''USER'')')}" type="text" th:name="description"
-						th:value="${product.description}"></td>
+					<td><textarea th:readonly="${#authorization.expression('hasRole(''USER'')')}" type="text" th:name="description"
+						th:text="${product.description}"></textarea></td>
 
 					<td><input th:readonly="${#authorization.expression('hasRole(''USER'')')}" type="text" th:name="price"
 						th:value="${product.price}"></td>
@@ -185,7 +186,7 @@
 	<h6>Links</h6>
 	<ul class="list-unstyled mb-0">
 	<li><a href="#" class="text-dark text-decoration-none">Home</a></li>
-	<li><a href="#" class="text-dark text-decoration-none">Contact Us</a></li>
+	<li><a href="/contactus" class="text-dark text-decoration-none">Contact Us</a></li>
 	<li><a href="#" class="text-dark text-decoration-none">Privacy</a></li>
 	</ul><br>
 	<h6>Our Services</h6>

@@ -100,3 +100,41 @@
 	transform:scale(1.2);
 	z-index:10;
 }
+.custom-file-input{
+	
+	display:none;
+	
+}
+.custom-file-label{
+	
+	display:inline-block;
+	padding:4px 10px;
+	margin:4px 6px;
+	cursor:pointer;
+	background-color:#007bff;
+	color:white;
+	border-radius:4px;
+}
+.contact-heading{
+	text-align:center;
+	margin:30px 0;
+	color:#343a40;
+}
+.card{
+	
+	box-shadow:0 4px 8px rgba(0,0,0,0.1);
+	transition:transform 0.2s;
+}
+.card:hover{
+	
+	transform:scale(1.02);
+}
+.card-title{
+	font-weight:bold;
+	color:#007bff;
+	
+}
+.card-text{
+	font-size:1.1rem;
+	color:#333;
+}
